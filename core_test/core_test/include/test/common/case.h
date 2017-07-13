@@ -1,5 +1,5 @@
 /* MIT License
-
+ *
  * Copyright (c) 2017 Andrew Yeung/Bhavya Kashyap <ab.deveng@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,7 +22,7 @@
 
 #pragma once
 
-class ITestHarness {
+class ITestCase {
 public:
-	~ITestHarness() {}
+	~ITestCase() {}
 };
