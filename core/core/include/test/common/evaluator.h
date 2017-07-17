@@ -29,20 +29,20 @@ class CEvaluator final
 public:
     enum PRIMITIVE : uint8_t
     {
-        BOOL  = 0,
-        INT8  = BOOL + 1,
-        INT16 = INT8 + 1,
-        INT32 = INT16 + 1
+        BOOL,
+        INT8,
+        INT16,
+        INT32
     };
 
     enum COMPARATOR : uint8_t
     {
-        EQUAL                 = 0,
-        NOT_EQUAL             = EQUAL + 1,
-        GREATER_THAN          = NOT_EQUAL + 1,
-        GREATER_THAN_OR_EQUAL = GREATER_THAN + 1,
-        LESS_THAN             = GREATER_THAN_OR_EQUAL + 1,
-        LESS_THAN_OR_EQUAL    = LESS_THAN + 1
+        EQUAL,
+        NOT_EQUAL,
+        GREATER_THAN,
+        GREATER_THAN_OR_EQUAL,
+        LESS_THAN,
+        LESS_THAN_OR_EQUAL
     };
 
     enum RESULT : uint8_t
