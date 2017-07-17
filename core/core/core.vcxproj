@@ -135,7 +135,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\service\logger.h" />
-    <ClInclude Include="include\service\time.h" />
     <ClInclude Include="include\test\common\evaluator.h" />
     <ClInclude Include="include\test\common\case.h" />
     <ClInclude Include="include\test\common\harness.h" />

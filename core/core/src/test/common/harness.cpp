@@ -22,15 +22,13 @@
 
 #include <test/common/harness.h>
 
-#include <service/time.h>
 #include <test/common/evaluator.h>
 
 /* PUBLIC */
 
-CTestHarness::CTestHarness(CEvaluator& evaluator, ILogger& serviceLogger, ITime& serviceTime)
+CTestHarness::CTestHarness(CEvaluator& evaluator, ILogger& serviceLogger)
     : m_evaluator(evaluator)
-    , m_service_logger(serviceLogger)
-    , m_service_time(serviceTime) {
+    , m_service_logger(serviceLogger) {
 }
 
 CTestHarness::~CTestHarness() {
@@ -39,16 +37,21 @@ CTestHarness::~CTestHarness() {
 /* PROTECTED */
 
 // Helpers: CEvaluator
-CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int8_t> evaluation) {
-    return m_evaluator.Validate(evaluation);
+
+CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<bool> evaluation, CEvaluator::COMPARATOR comparator) const {
+    return m_evaluator.Validate(evaluation, comparator);
 }
 
-CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int16_t> evaluation) {
-    return m_evaluator.Validate(evaluation);
+CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int8_t> evaluation, CEvaluator::COMPARATOR comparator) const {
+    return m_evaluator.Validate(evaluation, comparator);
 }
 
-CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int32_t> evaluation) {
-    return m_evaluator.Validate(evaluation);
+CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int16_t> evaluation, CEvaluator::COMPARATOR comparator) const {
+    return m_evaluator.Validate(evaluation, comparator);
+}
+
+CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int32_t> evaluation, CEvaluator::COMPARATOR comparator) const {
+    return m_evaluator.Validate(evaluation, comparator);
 }
 
 // Helpers: ILogger
@@ -75,14 +78,4 @@ void CTestHarness::Log(const unsigned int msg, ILogger::FORMAT format, bool eol)
 
 void CTestHarness::Log(const unsigned long msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
-}
-
-// Helpers: ITime
-
-void CTestHarness::DelayMs(const uint32_t value) const {
-    m_service_time.DelayMs(value);
-}
-
-void CTestHarness::DelayUs(const uint32_t value) const {
-    m_service_time.DelayUs(value);
 }

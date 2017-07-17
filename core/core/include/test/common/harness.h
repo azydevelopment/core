@@ -27,19 +27,18 @@
 #include <service/logger.h>
 #include <test/common/evaluator.h>
 
-class ITime;
-
 class CTestHarness
 {
 public:
-    CTestHarness(CEvaluator&, ILogger&, ITime&);
+    CTestHarness(CEvaluator&, ILogger&);
     ~CTestHarness();
 
 protected:
     // Helpers: Evaluator
-    CEvaluator::RESULT Validate(CEvaluator::EVALUATION<int8_t>);
-    CEvaluator::RESULT Validate(CEvaluator::EVALUATION<int16_t>);
-    CEvaluator::RESULT Validate(CEvaluator::EVALUATION<int32_t>);
+    virtual CEvaluator::RESULT Validate(CEvaluator::EVALUATION<bool>, CEvaluator::COMPARATOR) const final;
+    virtual CEvaluator::RESULT Validate(CEvaluator::EVALUATION<int8_t>, CEvaluator::COMPARATOR) const final;
+    virtual CEvaluator::RESULT Validate(CEvaluator::EVALUATION<int16_t>, CEvaluator::COMPARATOR) const final;
+    virtual CEvaluator::RESULT Validate(CEvaluator::EVALUATION<int32_t>, CEvaluator::COMPARATOR) const final;
 
     // Helpers: ILogger
     virtual void LogEol() final;
@@ -49,12 +48,11 @@ protected:
     virtual void Log(const unsigned int, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
     virtual void Log(const unsigned long, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
 
-    // Helpers: ITime
-    virtual void DelayMs(const uint32_t) const final;
-    virtual void DelayUs(const uint32_t) const final;
-
 private:
+    // Disable copying and assignments
+    CTestHarness(const CTestHarness&);
+    CTestHarness& operator=(const CTestHarness&);
+
     CEvaluator& m_evaluator;
     ILogger& m_service_logger;
-    ITime& m_service_time;
 };

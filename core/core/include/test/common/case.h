@@ -43,5 +43,9 @@ protected:
     virtual void Log(const unsigned long, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
 
 private:
+    // Disable copying and assignments
+    CTestCase(const CTestCase&);
+    CTestCase& operator=(const CTestCase&);
+
     ILogger& m_service_logger;
 };

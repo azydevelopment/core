@@ -30,17 +30,22 @@ CEvaluator::CEvaluator() {
 CEvaluator::~CEvaluator() {
 }
 
-CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int8_t> evaluation) const {
+CEvaluator::RESULT CEvaluator::Validate(EVALUATION<bool> evaluation, COMPARATOR comparator) const {
     // TODO IMPLEMENT
     return UNDEFINED;
 }
 
-CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int16_t> evaluation) const {
+CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int8_t> evaluation, COMPARATOR comparator) const {
     // TODO IMPLEMENT
     return UNDEFINED;
 }
 
-CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int32_t> evaluation) const {
+CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int16_t> evaluation, COMPARATOR comparator) const {
+    // TODO IMPLEMENT
+    return UNDEFINED;
+}
+
+CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int32_t> evaluation, COMPARATOR comparator) const {
     // TODO IMPLEMENT
     return UNDEFINED;
 }

@@ -27,12 +27,22 @@
 class CEvaluator final
 {
 public:
-    enum TYPE : uint8_t
+    enum PRIMITIVE : uint8_t
     {
         BOOL  = 0,
-        INT8  = 0,
+        INT8  = BOOL + 1,
         INT16 = INT8 + 1,
         INT32 = INT16 + 1
+    };
+
+    enum COMPARATOR : uint8_t
+    {
+        EQUAL                 = 0,
+        NOT_EQUAL             = EQUAL + 1,
+        GREATER_THAN          = NOT_EQUAL + 1,
+        GREATER_THAN_OR_EQUAL = GREATER_THAN + 1,
+        LESS_THAN             = GREATER_THAN_OR_EQUAL + 1,
+        LESS_THAN_OR_EQUAL    = LESS_THAN + 1
     };
 
     enum RESULT : uint8_t
@@ -59,7 +69,7 @@ public:
     public:
         virtual ~IEvaluatable(){};
 
-        virtual TYPE GetType() const                  = 0;
+        virtual PRIMITIVE GetPrimitiveType() const    = 0;
         virtual uint8_t GetEvaluationLength() const   = 0; // TODO: Do we want to limit the array index to a uint8_t
         virtual EVALUATION<U> Evaluate(EVALUATION<U>) = 0;
     };
@@ -69,7 +79,13 @@ public:
 
     // TODO IMPLEMENT: Any reason to not make these static?
     // TODO IMPLEMENT: Maybe inline even? Gotta trade off binary size with perf.
-    RESULT Validate(EVALUATION<int8_t>) const;
-    RESULT Validate(EVALUATION<int16_t>) const;
-    RESULT Validate(EVALUATION<int32_t>) const;
+    RESULT Validate(EVALUATION<bool>, COMPARATOR) const;
+    RESULT Validate(EVALUATION<int8_t>, COMPARATOR) const;
+    RESULT Validate(EVALUATION<int16_t>, COMPARATOR) const;
+    RESULT Validate(EVALUATION<int32_t>, COMPARATOR) const;
+
+private:
+    // Disable copying and assignments
+    CEvaluator(const CEvaluator&);
+    CEvaluator& operator=(const CEvaluator&);
 };
