@@ -26,8 +26,8 @@
 
 #include <service/logger.h>
 
-template<typename T>
-class CTestCase : CEvaluator::IEvaluatable<T>
+template<typename EVALUATION_PRIMITIVE>
+class CTestCase : CEvaluator::IEvaluatable<EVALUATION_PRIMITIVE>
 {
 public:
     CTestCase(ILogger& serviceLogger);

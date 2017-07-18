@@ -24,50 +24,51 @@
 
 /* PUBLIC */
 
-template<typename T>
-CTestCase<typename T>::CTestCase(ILogger& serviceLogger)
+template<typename EVALUATION_PRIMITIVE>
+CTestCase<typename EVALUATION_PRIMITIVE>::CTestCase(ILogger& serviceLogger)
     : m_service_logger(serviceLogger) {
 }
 
-template<typename T>
-CTestCase<typename T>::~CTestCase() {
+template<typename EVALUATION_PRIMITIVE>
+CTestCase<typename EVALUATION_PRIMITIVE>::~CTestCase() {
 }
 
 /* PROTECTED */
 
 // Helpers: ILogger
 
-template<typename T>
-void CTestCase<typename T>::LogEol() {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::LogEol() {
     m_service_logger.LogEol();
 }
 
-template<typename T>
-void CTestCase<typename T>::Log(const char msg[], bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const char msg[], bool eol) {
     m_service_logger.Log(msg, eol);
 }
 
-template<typename T>
-void CTestCase<typename T>::Log(const int msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const int msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
 
-template<typename T>
-void CTestCase<typename T>::Log(const long msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const long msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
 
-template<typename T>
-void CTestCase<typename T>::Log(const unsigned int msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const unsigned int msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
 
-template<typename T>
-void CTestCase<typename T>::Log(const unsigned long msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const unsigned long msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
 
 /* FORWARD DECLARED TEMPLATE COMBOS */
+template class CTestCase<bool>;
 template class CTestCase<int8_t>;
 template class CTestCase<int16_t>;
 template class CTestCase<int32_t>;

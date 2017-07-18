@@ -53,25 +53,25 @@ public:
         UNDEFINED = 255
     };
 
-    template<typename T>
+    template<typename EVALUATION_PRIMITIVE>
     struct EVALUATION final
     {
         // TODO IMPLEMENT: Do we want to limit the array index type to a uint8_t?
-        T* const payload_expected    = nullptr;
-        uint8_t len_payload_expected = 0;
-        T* const payload_actual      = nullptr;
-        uint8_t len_payload_actual   = 0;
+        EVALUATION_PRIMITIVE* const payload_expected = nullptr;
+        uint8_t len_payload_expected                 = 0;
+        EVALUATION_PRIMITIVE* const payload_actual   = nullptr;
+        uint8_t len_payload_actual                   = 0;
     };
 
-    template<typename U>
+    template<typename EVALUATION_PRIMITIVE>
     class IEvaluatable
     {
     public:
         virtual ~IEvaluatable(){};
 
-        virtual PRIMITIVE GetPrimitiveType() const    = 0;
-        virtual uint8_t GetEvaluationLength() const   = 0; // TODO: Do we want to limit the array index to a uint8_t
-        virtual EVALUATION<U> Evaluate(EVALUATION<U>) = 0;
+        virtual PRIMITIVE GetPrimitiveType() const                                          = 0;
+        virtual uint8_t GetEvaluationLength() const                                         = 0; // TODO: Do we want to limit the array index to a uint8_t
+        virtual EVALUATION<EVALUATION_PRIMITIVE> Evaluate(EVALUATION<EVALUATION_PRIMITIVE>) = 0;
     };
 
     CEvaluator();
