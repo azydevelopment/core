@@ -5,7 +5,7 @@
     "tasks": [
         {
             "taskName": "build_debug",
-            "command": "%MSBUILD%",
+            "command": "msbuild.exe",
             "args": [
                 "core.sln",
                 "/property:Configuration=Debug",
@@ -25,7 +25,7 @@
         },
         {
             "taskName": "build_release",
-            "command": "%MSBUILD%",
+            "command": "msbuild.exe",
             "args": [
                 "core.sln",
                 "/property:Configuration=Release",
