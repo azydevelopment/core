@@ -24,8 +24,8 @@
 
 #include <stdint.h>
 
-#include <service/logger.h>
-#include <test/common/evaluator.h>
+#include <abdeveng/core/service/logger.h>
+#include <abdeveng/core/test/common/evaluator.h>
 
 class CTestHarness
 {

@@ -20,62 +20,55 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE. */
 
-#include <test/common/harness.h>
-
-#include <test/common/evaluator.h>
+#include <abdeveng/core/test/common/case.h>
 
 /* PUBLIC */
 
-CTestHarness::CTestHarness(CEvaluator& evaluator, ILogger& serviceLogger)
-    : m_evaluator(evaluator)
-    , m_service_logger(serviceLogger) {
+template<typename EVALUATION_PRIMITIVE>
+CTestCase<typename EVALUATION_PRIMITIVE>::CTestCase(ILogger& serviceLogger)
+    : m_service_logger(serviceLogger) {
 }
 
-CTestHarness::~CTestHarness() {
+template<typename EVALUATION_PRIMITIVE>
+CTestCase<typename EVALUATION_PRIMITIVE>::~CTestCase() {
 }
 
 /* PROTECTED */
 
-// Helpers: CEvaluator
-
-CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<bool> evaluation, CEvaluator::COMPARATOR comparator) const {
-    return m_evaluator.Validate(evaluation, comparator);
-}
-
-CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int8_t> evaluation, CEvaluator::COMPARATOR comparator) const {
-    return m_evaluator.Validate(evaluation, comparator);
-}
-
-CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int16_t> evaluation, CEvaluator::COMPARATOR comparator) const {
-    return m_evaluator.Validate(evaluation, comparator);
-}
-
-CEvaluator::RESULT CTestHarness::Validate(CEvaluator::EVALUATION<int32_t> evaluation, CEvaluator::COMPARATOR comparator) const {
-    return m_evaluator.Validate(evaluation, comparator);
-}
-
 // Helpers: ILogger
 
-void CTestHarness::LogEol() {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::LogEol() {
     m_service_logger.LogEol();
 }
 
-void CTestHarness::Log(const char msg[], bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const char msg[], bool eol) {
     m_service_logger.Log(msg, eol);
 }
 
-void CTestHarness::Log(const int msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const int msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
 
-void CTestHarness::Log(const long msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const long msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
 
-void CTestHarness::Log(const unsigned int msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const unsigned int msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
 
-void CTestHarness::Log(const unsigned long msg, ILogger::FORMAT format, bool eol) {
+template<typename EVALUATION_PRIMITIVE>
+void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const unsigned long msg, ILogger::FORMAT format, bool eol) {
     m_service_logger.Log(msg, format, eol);
 }
+
+/* FORWARD DECLARED TEMPLATE COMBOS */
+template class CTestCase<bool>;
+template class CTestCase<int8_t>;
+template class CTestCase<int16_t>;
+template class CTestCase<int32_t>;

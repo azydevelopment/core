@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE. */
 
-#include <test/common/evaluator.h>
+#include <abdeveng/core/test/common/evaluator.h>
 
 /* PUBLIC */
 

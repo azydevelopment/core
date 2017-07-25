@@ -15,27 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\service\logger.h">
+    <ClInclude Include="include\abdeveng\core\test\common\case.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\test\common\harness.h">
+    <ClInclude Include="include\abdeveng\core\test\common\evaluator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\test\common\case.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\test\common\evaluator.h">
+    <ClInclude Include="include\abdeveng\core\test\common\harness.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\test\common\harness.cpp">
+    <ClCompile Include="src\abdeveng\core\test\common\case.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\test\common\evaluator.cpp">
+    <ClCompile Include="src\abdeveng\core\test\common\evaluator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\test\common\case.cpp">
+    <ClCompile Include="src\abdeveng\core\test\common\harness.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

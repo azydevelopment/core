@@ -22,9 +22,9 @@
 
 #pragma once
 
-#include <test/common/evaluator.h>
+#include <abdeveng/core/test/common/evaluator.h>
 
-#include <service/logger.h>
+#include <abdeveng/core/service/logger.h>
 
 template<typename EVALUATION_PRIMITIVE>
 class CTestCase : CEvaluator::IEvaluatable<EVALUATION_PRIMITIVE>
