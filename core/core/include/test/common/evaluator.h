@@ -79,10 +79,10 @@ public:
 
     // TODO IMPLEMENT: Any reason to not make these static?
     // TODO IMPLEMENT: Maybe inline even? Gotta trade off binary size with perf.
-    RESULT Validate(EVALUATION<bool>, COMPARATOR) const;
-    RESULT Validate(EVALUATION<int8_t>, COMPARATOR) const;
-    RESULT Validate(EVALUATION<int16_t>, COMPARATOR) const;
-    RESULT Validate(EVALUATION<int32_t>, COMPARATOR) const;
+    virtual RESULT Validate(EVALUATION<bool>, COMPARATOR) const    = 0;
+    virtual RESULT Validate(EVALUATION<int8_t>, COMPARATOR) const  = 0;
+    virtual RESULT Validate(EVALUATION<int16_t>, COMPARATOR) const = 0;
+    virtual RESULT Validate(EVALUATION<int32_t>, COMPARATOR) const = 0;
 
 private:
     // Disable copying and assignments
