@@ -24,28 +24,26 @@
 
 /* PUBLIC */
 
-CEvaluator::CEvaluator() {
+CEvaluator::CEvaluator(IDelCallbackValidation& delCallbackValidation)
+    : m_del_callback_validation(delCallbackValidation) {
 }
 
 CEvaluator::~CEvaluator() {
 }
 
-CEvaluator::RESULT CEvaluator::Validate(EVALUATION<bool> evaluation, COMPARATOR comparator) const {
+bool CEvaluator::Validate(bool checkIfTrue) const {
     // TODO IMPLEMENT
-    return UNDEFINED;
+    return false;
 }
 
-CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int8_t> evaluation, COMPARATOR comparator) const {
+template<typename PRIMITIVE>
+bool CEvaluator::Validate(PRIMITIVE actual, COMPARATOR comparator, PRIMITIVE expected) const {
     // TODO IMPLEMENT
-    return UNDEFINED;
+    return false;
 }
 
-CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int16_t> evaluation, COMPARATOR comparator) const {
+template<typename PRIMITIVE>
+bool CEvaluator::Validate(EVALUATION<PRIMITIVE> evaluation, COMPARATOR comparator) const {
     // TODO IMPLEMENT
-    return UNDEFINED;
-}
-
-CEvaluator::RESULT CEvaluator::Validate(EVALUATION<int32_t> evaluation, COMPARATOR comparator) const {
-    // TODO IMPLEMENT
-    return UNDEFINED;
+    return false;
 }

@@ -27,14 +27,6 @@
 class CEvaluator final
 {
 public:
-    enum PRIMITIVE : uint8_t
-    {
-        BOOL,
-        INT8,
-        INT16,
-        INT32
-    };
-
     enum COMPARATOR : uint8_t
     {
         EQUAL,
@@ -45,47 +37,54 @@ public:
         LESS_THAN_OR_EQUAL
     };
 
-    enum RESULT : uint8_t
-    {
-        PASS = 0,
-        FAIL = 1,
-        // TODO IMPLEMENT: Maybe use UINT8_MAX. Is that a standard define?
-        UNDEFINED = 255
-    };
-
     template<typename EVALUATION_PRIMITIVE>
-    struct EVALUATION final
+    struct EVALUATION
     {
         // TODO IMPLEMENT: Do we want to limit the array index type to a uint8_t?
-        EVALUATION_PRIMITIVE* const payload_expected = nullptr;
-        uint8_t len_payload_expected                 = 0;
-        EVALUATION_PRIMITIVE* const payload_actual   = nullptr;
-        uint8_t len_payload_actual                   = 0;
+        EVALUATION_PRIMITIVE* payload_expected = nullptr;
+        uint8_t len_payload_expected           = 0;
+        EVALUATION_PRIMITIVE* payload_actual   = nullptr;
+        uint8_t len_payload_actual             = 0;
     };
 
-    template<typename EVALUATION_PRIMITIVE>
-    class IEvaluatable
+    class IDelCallbackValidation
     {
     public:
-        virtual ~IEvaluatable(){};
-
-        virtual PRIMITIVE GetPrimitiveType() const                                          = 0;
-        virtual uint8_t GetEvaluationLength() const                                         = 0; // TODO: Do we want to limit the array index to a uint8_t
-        virtual EVALUATION<EVALUATION_PRIMITIVE> Evaluate(EVALUATION<EVALUATION_PRIMITIVE>) = 0;
+        virtual void OnValidationFail(bool actual, bool expected)       = 0;
+        virtual void OnValidationFail(int8_t actual, int8_t expected)   = 0;
+        virtual void OnValidationFail(int16_t actual, int16_t expected) = 0;
+        virtual void OnValidationFail(int32_t actual, int32_t expected) = 0;
+        virtual void OnValidationFail(const EVALUATION<bool>& evaluation)    = 0;
+        virtual void OnValidationFail(const EVALUATION<int8_t>& evaluation)  = 0;
+        virtual void OnValidationFail(const EVALUATION<int16_t>& evaluation) = 0;
+        virtual void OnValidationFail(const EVALUATION<int32_t>& evaluation) = 0;
     };
 
-    CEvaluator();
+    CEvaluator(IDelCallbackValidation&);
     virtual ~CEvaluator();
 
-    // TODO IMPLEMENT: Any reason to not make these static?
-    // TODO IMPLEMENT: Maybe inline even? Gotta trade off binary size with perf.
-    virtual RESULT Validate(EVALUATION<bool>, COMPARATOR) const    = 0;
-    virtual RESULT Validate(EVALUATION<int8_t>, COMPARATOR) const  = 0;
-    virtual RESULT Validate(EVALUATION<int16_t>, COMPARATOR) const = 0;
-    virtual RESULT Validate(EVALUATION<int32_t>, COMPARATOR) const = 0;
+    bool Validate(bool checkIfTrue) const;
+
+    template<typename PRIMITIVE>
+    bool Validate(PRIMITIVE actual, COMPARATOR, PRIMITIVE expected) const;
+
+    template<typename PRIMITIVE>
+    bool Validate(EVALUATION<PRIMITIVE>, COMPARATOR) const;
 
 private:
-    // Disable copying and assignments
-    CEvaluator(const CEvaluator&);
-    CEvaluator& operator=(const CEvaluator&);
+    IDelCallbackValidation& m_del_callback_validation;
 };
+
+/* FORWARD DECLARE FUNCTION TEMPLATES */
+template bool CEvaluator::Validate<int8_t>(int8_t actual, COMPARATOR, int8_t expected) const;
+template bool CEvaluator::Validate<int16_t>(int16_t actual, COMPARATOR, int16_t expected) const;
+template bool CEvaluator::Validate<int32_t>(int32_t actual, COMPARATOR, int32_t expected) const;
+template bool CEvaluator::Validate<uint8_t>(uint8_t actual, COMPARATOR, uint8_t expected) const;
+template bool CEvaluator::Validate<uint16_t>(uint16_t actual, COMPARATOR, uint16_t expected) const;
+template bool CEvaluator::Validate<uint32_t>(uint32_t actual, COMPARATOR, uint32_t expected) const;
+template bool CEvaluator::Validate(EVALUATION<int8_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int16_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int32_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint8_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint16_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint32_t>, COMPARATOR) const;

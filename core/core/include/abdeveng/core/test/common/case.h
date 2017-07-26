@@ -25,27 +25,29 @@
 #include <abdeveng/core/test/common/evaluator.h>
 
 #include <abdeveng/core/service/logger.h>
+#include <abdeveng/core/test/common/evaluator.h>
 
-template<typename EVALUATION_PRIMITIVE>
-class CTestCase : CEvaluator::IEvaluatable<EVALUATION_PRIMITIVE>
+template<typename DUT_TYPE>
+class CTestCase
 {
 public:
-    CTestCase(ILogger& serviceLogger);
+    CTestCase(CEvaluator&);
     virtual ~CTestCase();
 
+    virtual void Run(DUT_TYPE& dut) = 0;
+
+    // TODO IMPLEMENT: Copy constructor
+
 protected:
-    // Helpers: ILogger
-    virtual void LogEol() final;
-    virtual void Log(const char[], bool eol = true) final;
-    virtual void Log(const int, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
-    virtual void Log(const long, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
-    virtual void Log(const unsigned int, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
-    virtual void Log(const unsigned long, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
+    // Helpers: CEvaluator
+    bool Validate(bool checkIfTrue) const;
+
+    template<typename PRIMITIVE>
+    bool Validate(PRIMITIVE actual, CEvaluator::COMPARATOR, PRIMITIVE expected) const;
+
+    template<typename PRIMITIVE>
+    bool Validate(CEvaluator::EVALUATION<PRIMITIVE>, CEvaluator::COMPARATOR) const;
 
 private:
-    // Disable copying and assignments
-    CTestCase(const CTestCase&);
-    CTestCase& operator=(const CTestCase&);
-
-    ILogger& m_service_logger;
+    CEvaluator& m_evaluator;
 };

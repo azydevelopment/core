@@ -24,51 +24,32 @@
 
 /* PUBLIC */
 
-template<typename EVALUATION_PRIMITIVE>
-CTestCase<typename EVALUATION_PRIMITIVE>::CTestCase(ILogger& serviceLogger)
-    : m_service_logger(serviceLogger) {
+template<typename DUT_TYPE>
+CTestCase<DUT_TYPE>::CTestCase(CEvaluator& evaluator)
+    : m_evaluator(evaluator) {
 }
 
-template<typename EVALUATION_PRIMITIVE>
-CTestCase<typename EVALUATION_PRIMITIVE>::~CTestCase() {
+template<typename DUT_TYPE>
+CTestCase<DUT_TYPE>::~CTestCase() {
 }
 
 /* PROTECTED */
 
-// Helpers: ILogger
+// Helpers: CEvaluator
 
-template<typename EVALUATION_PRIMITIVE>
-void CTestCase<typename EVALUATION_PRIMITIVE>::LogEol() {
-    m_service_logger.LogEol();
+template<typename DUT_TYPE>
+bool CTestCase<DUT_TYPE>::Validate(bool checkIfTrue) const {
+    return m_evaluator.Validate(checkIfTrue);
 }
 
-template<typename EVALUATION_PRIMITIVE>
-void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const char msg[], bool eol) {
-    m_service_logger.Log(msg, eol);
+template<typename DUT_TYPE>
+template<typename PRIMITIVE>
+bool CTestCase<DUT_TYPE>::Validate(PRIMITIVE actual, CEvaluator::COMPARATOR comparator, PRIMITIVE expected) const {
+    return m_evaluator.Validate<PRIMITIVE>(actual, comparator, expected);
 }
 
-template<typename EVALUATION_PRIMITIVE>
-void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const int msg, ILogger::FORMAT format, bool eol) {
-    m_service_logger.Log(msg, format, eol);
+template<typename DUT_TYPE>
+template<typename PRIMITIVE>
+bool CTestCase<DUT_TYPE>::Validate(CEvaluator::EVALUATION<PRIMITIVE> evaluation, CEvaluator::COMPARATOR comparator) const {
+    return m_evaluator.Validate<PRIMITIVE>(evaluation, comparator);
 }
-
-template<typename EVALUATION_PRIMITIVE>
-void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const long msg, ILogger::FORMAT format, bool eol) {
-    m_service_logger.Log(msg, format, eol);
-}
-
-template<typename EVALUATION_PRIMITIVE>
-void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const unsigned int msg, ILogger::FORMAT format, bool eol) {
-    m_service_logger.Log(msg, format, eol);
-}
-
-template<typename EVALUATION_PRIMITIVE>
-void CTestCase<typename EVALUATION_PRIMITIVE>::Log(const unsigned long msg, ILogger::FORMAT format, bool eol) {
-    m_service_logger.Log(msg, format, eol);
-}
-
-/* FORWARD DECLARED TEMPLATE COMBOS */
-template class CTestCase<bool>;
-template class CTestCase<int8_t>;
-template class CTestCase<int16_t>;
-template class CTestCase<int32_t>;
