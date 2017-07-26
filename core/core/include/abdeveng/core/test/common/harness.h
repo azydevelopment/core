@@ -42,7 +42,7 @@ public:
 protected:
     virtual void ResetDUT()           = 0;
     virtual uint8_t GetNumTestCases() = 0; // TODO HACK: Limited to 256 test cases
-    virtual CTestCase<DUT_TYPE> GetTestCase(uint8_t testIndex, CEvaluator& evaluator);
+    virtual CTestCase<DUT_TYPE> GetTestCase(uint8_t testIndex, CEvaluator& evaluator) = 0;
 
     // Helpers: ILogger
     virtual void LogEol() final;
