@@ -40,9 +40,11 @@ public:
     virtual void Run() final;
 
 protected:
-    virtual void ResetDUT()           = 0;
-    virtual uint8_t GetNumTestCases() = 0; // TODO HACK: Limited to 256 test cases
-    virtual CTestCase<DUT_TYPE> GetTestCase(uint8_t testIndex, CEvaluator& evaluator) = 0;
+    virtual void ResetDUT()                                           = 0;
+    virtual uint8_t GetNumTestCases()                                 = 0; // TODO HACK: Limited to 256 test cases
+    virtual CTestCase<DUT_TYPE>* const GetTestCase(uint8_t testIndex) = 0;
+
+    virtual CEvaluator& GetEvaluator();
 
     // Helpers: ILogger
     virtual void LogEol() final;

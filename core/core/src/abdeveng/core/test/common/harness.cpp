@@ -51,6 +51,11 @@ void CTestHarness<DUT_TYPE>::Run() {
 
 /* PROTECTED */
 
+template<typename DUT_TYPE>
+CEvaluator& CTestHarness<DUT_TYPE>::GetEvaluator() {
+    return m_evaluator;
+}
+
 // Helpers: ILogger
 
 template<typename DUT_TYPE>
