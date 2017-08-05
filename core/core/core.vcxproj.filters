@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\abdeveng\core\test\common\case.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\abdeveng\core\test\common\evaluator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -26,9 +23,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\abdeveng\core\test\common\case.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\abdeveng\core\test\common\evaluator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

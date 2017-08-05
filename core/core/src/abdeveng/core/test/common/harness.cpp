@@ -22,118 +22,52 @@
 
 #include <abdeveng/core/test/common/harness.h>
 
-#include <abdeveng/core/test/common/evaluator.h>
-
 /* PUBLIC */
 
-template<typename DUT_TYPE>
-CTestHarness<DUT_TYPE>::CTestHarness(DUT_TYPE& dut, ILogger& logger)
-    : m_del_callback_validation(CTestHarness::CDelCallbackValidation(logger))
-    , m_evaluator(CEvaluator(m_del_callback_validation))
-    , m_logger(logger) {
+CTestHarness::CTestHarness() {
 }
 
-template<typename DUT_TYPE>
-CTestHarness<DUT_TYPE>::~CTestHarness() {
+CTestHarness::~CTestHarness() {
 }
 
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::Run() {
+void CTestHarness::Run() {
+    volatile void* dut = GetDUT();
+
     // TODO HACK: Limited to 256 test cases
     uint8_t numTestCases = GetNumTestCases();
+
+    // TODO HACK: Limited to 256 test cases
     for (uint8_t i = 0; i < numTestCases; i++) {
         // TODO IMPLEMENT: Print test start metadata
-        ResetDUT();
-        GetTestCase(i, m_evaluator).Run(m_dut);
+        GetTestCase(i).Run(dut, GetTestCaseConfig(i), GetEvaluator());
         // TODO IMPLEMENT: Print test pass/fail metadata
     }
 }
 
-/* PROTECTED */
+/* PRIVATE */
 
-template<typename DUT_TYPE>
-CEvaluator& CTestHarness<DUT_TYPE>::GetEvaluator() {
+volatile void* CTestHarness::GetDUT() {
+    return m_test_harness_config.dut;
+}
+
+ILogger& CTestHarness::GetLogger() {
+    return *m_test_harness_config.logger;
+}
+
+const CEvaluator& CTestHarness::GetEvaluator() {
     return m_evaluator;
 }
 
-// Helpers: ILogger
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::Log(const char msg[], bool eol) {
-    m_logger.Log(msg, eol);
+uint8_t CTestHarness::GetNumTestCases() {
+    return m_test_playlist.num_test_cases;
 }
 
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::Log(const int msg, ILogger::FORMAT format, bool eol) {
-    m_logger.Log(msg, format, eol);
+CTestHarness::ITestCase& CTestHarness::GetTestCase(uint8_t testIndex) {
+    // TODO ERROR_HANDLING: No nullptr check?
+    return *m_test_playlist.test_cases[testIndex];
 }
 
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::Log(const long msg, ILogger::FORMAT format, bool eol) {
-    m_logger.Log(msg, format, eol);
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::Log(const unsigned int msg, ILogger::FORMAT format, bool eol) {
-    m_logger.Log(msg, format, eol);
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::Log(const unsigned long msg, ILogger::FORMAT format, bool eol) {
-    m_logger.Log(msg, format, eol);
-}
-
-/* PRIVATE */
-
-// CTestHarness<DUT_TYPE>::CDelCallbackValidation
-
-template<typename DUT_TYPE>
-CTestHarness<DUT_TYPE>::CDelCallbackValidation::CDelCallbackValidation(ILogger& logger)
-    : m_logger(logger) {
-}
-
-template<typename DUT_TYPE>
-CTestHarness<DUT_TYPE>::CDelCallbackValidation::~CDelCallbackValidation() {
-}
-
-// CTestHarness<DUT_TYPE>::CDelCallbackValidation::CEvaluator::IDelCallbackValidation
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(bool expected, bool actual) {
-    // TODO IMPLEMENT
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(int8_t expected, int8_t actual) {
-    // TODO IMPLEMENT
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(int16_t expected, int16_t actual) {
-    // TODO IMPLEMENT
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(int32_t expected, int32_t actual) {
-    // TODO IMPLEMENT
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(const CEvaluator::EVALUATION<bool>& evaluation) {
-    // TODO IMPLEMENT
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(const CEvaluator::EVALUATION<int8_t>& evaluation) {
-    // TODO IMPLEMENT
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(const CEvaluator::EVALUATION<int16_t>& evaluation) {
-    // TODO IMPLEMENT
-}
-
-template<typename DUT_TYPE>
-void CTestHarness<DUT_TYPE>::CDelCallbackValidation::OnValidationFail(const CEvaluator::EVALUATION<int32_t>& evaluation) {
-    // TODO IMPLEMENT
+const CTestHarness::ITestCase::TEST_CASE_CONFIG_DESC& CTestHarness::GetTestCaseConfig(uint8_t testIndex) {
+    // TODO ERROR_HANDLING: No nullptr check?
+    return *m_test_playlist.test_case_configs[testIndex];
 }

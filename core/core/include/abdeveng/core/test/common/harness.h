@@ -24,65 +24,55 @@
 
 #include <stdint.h>
 
-#include <abdeveng/core/service/logger.h>
 #include <abdeveng/core/test/common/evaluator.h>
 
-template<typename DUT_TYPE>
-class CTestCase;
+class ILogger;
 
-template<typename DUT_TYPE>
-class CTestHarness
+class CTestHarness final
 {
 public:
-    CTestHarness(DUT_TYPE&, ILogger&);
-    virtual ~CTestHarness();
-
-    virtual void Run() final;
-
-protected:
-    virtual void ResetDUT()                                           = 0;
-    virtual uint8_t GetNumTestCases()                                 = 0; // TODO HACK: Limited to 256 test cases
-    virtual CTestCase<DUT_TYPE>* const GetTestCase(uint8_t testIndex) = 0;
-
-    virtual CEvaluator& GetEvaluator();
-
-    // Helpers: ILogger
-    virtual void LogEol() final;
-    virtual void Log(const char[], bool eol = true) final;
-    virtual void Log(const int, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
-    virtual void Log(const long, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
-    virtual void Log(const unsigned int, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
-    virtual void Log(const unsigned long, ILogger::FORMAT = ILogger::FORMAT::DECIMAL, bool eol = true) final;
-
-private:
-    // Disable copying and assignments
-    CTestHarness(const CTestHarness&);
-    CTestHarness& operator=(const CTestHarness&);
-
-    class CDelCallbackValidation : public CEvaluator::IDelCallbackValidation
+    class ITestCase
     {
     public:
-        CDelCallbackValidation(ILogger&);
-        virtual ~CDelCallbackValidation();
+        virtual ~ITestCase();
 
-        // CEvaluator::IDelCallbackValidation
-        virtual void OnValidationFail(bool expected, bool actual);
-        virtual void OnValidationFail(int8_t expected, int8_t actual);
-        virtual void OnValidationFail(int16_t expected, int16_t actual);
-        virtual void OnValidationFail(int32_t expected, int32_t actual);
-        virtual void OnValidationFail(const CEvaluator::EVALUATION<bool>& evaluation);
-        virtual void OnValidationFail(const CEvaluator::EVALUATION<int8_t>& evaluation);
-        virtual void OnValidationFail(const CEvaluator::EVALUATION<int16_t>& evaluation);
-        virtual void OnValidationFail(const CEvaluator::EVALUATION<int32_t>& evaluation);
+        struct TEST_CASE_CONFIG_DESC
+        {};
 
-    private:
-        ILogger& m_logger;
+        virtual void Run(volatile void* dut, const TEST_CASE_CONFIG_DESC& config, const CEvaluator& evaluator) = 0;
     };
 
-    CDelCallbackValidation m_del_callback_validation;
+    struct TEST_HARNESS_CONFIG_DESC
+    {
+        volatile void* dut;
+        ILogger* logger;
+    };
+
+    struct TEST_PLAYLIST_DESC
+    {
+        // TODO HACK: Limited to 256 test cases
+        uint8_t num_test_cases                               = 0;
+        ITestCase** test_cases                               = nullptr;
+        ITestCase::TEST_CASE_CONFIG_DESC** test_case_configs = nullptr;
+    };
+
+    CTestHarness();
+    virtual ~CTestHarness();
+
+    virtual void SetTestHarnessConfig(const TEST_HARNESS_CONFIG_DESC& config);
+    virtual void SetTestPlaylist(const TEST_PLAYLIST_DESC& playlist);
+    virtual void Run() final;
+
+private:
+    virtual volatile void* GetDUT();
+    virtual ILogger& GetLogger();
+    virtual const CEvaluator& GetEvaluator();
+    virtual uint8_t GetNumTestCases();
+    virtual ITestCase& GetTestCase(uint8_t testIndex);
+    virtual const ITestCase::TEST_CASE_CONFIG_DESC& GetTestCaseConfig(uint8_t testIndex);
+
+    TEST_HARNESS_CONFIG_DESC m_test_harness_config;
+    TEST_PLAYLIST_DESC m_test_playlist;
+
     CEvaluator m_evaluator;
-
-    ILogger& m_logger;
-
-    DUT_TYPE& m_dut;
 };

@@ -24,8 +24,7 @@
 
 #include <stdint.h>
 
-class CEvaluator final
-{
+class CEvaluator final {
 public:
     enum COMPARATOR : uint8_t
     {
@@ -47,32 +46,34 @@ public:
         uint8_t len_payload_actual             = 0;
     };
 
-    class IDelCallbackValidation
-    {
-    public:
-        virtual void OnValidationFail(bool actual, bool expected)       = 0;
-        virtual void OnValidationFail(int8_t actual, int8_t expected)   = 0;
-        virtual void OnValidationFail(int16_t actual, int16_t expected) = 0;
-        virtual void OnValidationFail(int32_t actual, int32_t expected) = 0;
-        virtual void OnValidationFail(const EVALUATION<bool>& evaluation)    = 0;
-        virtual void OnValidationFail(const EVALUATION<int8_t>& evaluation)  = 0;
-        virtual void OnValidationFail(const EVALUATION<int16_t>& evaluation) = 0;
-        virtual void OnValidationFail(const EVALUATION<int32_t>& evaluation) = 0;
-    };
+	class IDelValidateFail {
+	public:
+		virtual void OnValidationFail(bool actual, bool expected) = 0;
+		virtual void OnValidationFail(int8_t actual, int8_t expected) = 0;
+		virtual void OnValidationFail(int16_t actual, int16_t expected) = 0;
+		virtual void OnValidationFail(int32_t actual, int32_t expected) = 0;
+		virtual void OnValidationFail(const EVALUATION<bool>& evaluation) = 0;
+		virtual void OnValidationFail(const EVALUATION<int8_t>& evaluation) = 0;
+		virtual void OnValidationFail(const EVALUATION<int16_t>& evaluation) = 0;
+		virtual void OnValidationFail(const EVALUATION<int32_t>& evaluation) = 0;
+	};
 
-    CEvaluator(IDelCallbackValidation&);
-    virtual ~CEvaluator();
+    CEvaluator();
+    ~CEvaluator();
+
+	void SetDelValidateFail(IDelValidateFail&);
 
     bool Validate(bool checkIfTrue) const;
 
     template<typename PRIMITIVE>
-    bool Validate(PRIMITIVE actual, COMPARATOR, PRIMITIVE expected) const;
+	bool Validate(PRIMITIVE actual, COMPARATOR, PRIMITIVE expected) const;
 
     template<typename PRIMITIVE>
-    bool Validate(EVALUATION<PRIMITIVE>, COMPARATOR) const;
+	bool Validate(EVALUATION<PRIMITIVE>, COMPARATOR) const;
 
 private:
-    IDelCallbackValidation& m_del_callback_validation;
+	IDelValidateFail* m_del_validate_fail;
+
 };
 
 /* FORWARD DECLARE FUNCTION TEMPLATES */

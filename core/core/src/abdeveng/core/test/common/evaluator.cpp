@@ -24,11 +24,14 @@
 
 /* PUBLIC */
 
-CEvaluator::CEvaluator(IDelCallbackValidation& delCallbackValidation)
-    : m_del_callback_validation(delCallbackValidation) {
+CEvaluator::CEvaluator() {
 }
 
 CEvaluator::~CEvaluator() {
+}
+
+void CEvaluator::SetDelValidateFail(CEvaluator::IDelValidateFail& delValidateFail) {
+	m_del_validate_fail = &delValidateFail;
 }
 
 bool CEvaluator::Validate(bool checkIfTrue) const {
