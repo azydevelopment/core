@@ -37,8 +37,10 @@ public:
     virtual ~ILogger() {
     }
 
-    virtual void InitLogger() = 0;
-    virtual void LogEol()     = 0;
+    virtual void InitLogger()           = 0;
+    virtual void SetEnabledLogger(bool) = 0;
+    virtual bool IsEnabledLogger()      = 0;
+    virtual void LogEol()               = 0;
     virtual void Log(const char[], bool eol = true) = 0;
     virtual void Log(const int, FORMAT = DECIMAL, bool eol = true) = 0;
     virtual void Log(const long, FORMAT = DECIMAL, bool eol = true) = 0;

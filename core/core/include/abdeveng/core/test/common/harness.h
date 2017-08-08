@@ -40,7 +40,7 @@ public:
         struct TEST_CASE_CONFIG_DESC
         {};
 
-        virtual void Run(volatile void* dut, const TEST_CASE_CONFIG_DESC& config, const CEvaluator& evaluator) = 0;
+        virtual void Run(volatile void* dut, const TEST_CASE_CONFIG_DESC&, const CEvaluator&, const ILogger&) = 0;
     };
 
     struct TEST_HARNESS_CONFIG_DESC
@@ -60,8 +60,8 @@ public:
     CTestHarness();
     virtual ~CTestHarness();
 
-    virtual void SetTestHarnessConfig(const TEST_HARNESS_CONFIG_DESC& config);
-    virtual void SetTestPlaylist(const TEST_PLAYLIST_DESC& playlist);
+    virtual void SetTestHarnessConfig(const TEST_HARNESS_CONFIG_DESC&);
+    virtual void SetTestPlaylist(const TEST_PLAYLIST_DESC&);
     virtual void Run() final;
 
 private:

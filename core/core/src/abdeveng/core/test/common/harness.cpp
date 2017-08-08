@@ -22,6 +22,8 @@
 
 #include <abdeveng/core/test/common/harness.h>
 
+#include <abdeveng/core/service/logger.h>
+
 /* PUBLIC */
 
 CTestHarness::CTestHarness() {
@@ -39,7 +41,7 @@ void CTestHarness::Run() {
     // TODO HACK: Limited to 256 test cases
     for (uint8_t i = 0; i < numTestCases; i++) {
         // TODO IMPLEMENT: Print test start metadata
-        GetTestCase(i).Run(dut, GetTestCaseConfig(i), GetEvaluator());
+        GetTestCase(i).Run(dut, GetTestCaseConfig(i), GetEvaluator(), GetLogger());
         // TODO IMPLEMENT: Print test pass/fail metadata
     }
 }
