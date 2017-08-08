@@ -34,7 +34,8 @@ public:
     class ITestCase
     {
     public:
-        virtual ~ITestCase();
+        virtual ~ITestCase() {
+        }
 
         struct TEST_CASE_CONFIG_DESC
         {};
