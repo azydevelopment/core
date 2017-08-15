@@ -30,13 +30,15 @@ CEvaluator::CEvaluator() {
 CEvaluator::~CEvaluator() {
 }
 
-void CEvaluator::SetDelValidateFail(CEvaluator::IDelValidateFail& delValidateFail) {
-	m_del_validate_fail = &delValidateFail;
+void CEvaluator::SetDelValidateFail(CEvaluator::IDelValidateFail* delValidateFail) {
+    m_del_validate_fail = delValidateFail;
 }
 
 bool CEvaluator::Validate(bool checkIfTrue) const {
-    // TODO IMPLEMENT
-    return false;
+    if (m_del_validate_fail != nullptr && !checkIfTrue) {
+        m_del_validate_fail->OnValidateFail();
+    }
+    return checkIfTrue;
 }
 
 template<typename PRIMITIVE>

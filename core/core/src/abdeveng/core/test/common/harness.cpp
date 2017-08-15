@@ -40,10 +40,47 @@ void CTestHarness::Run() {
 
     // TODO HACK: Limited to 256 test cases
     for (uint8_t i = 0; i < numTestCases; i++) {
-        // TODO IMPLEMENT: Print test start metadata
+        // print test header
+        GetLogger().Log("\n----------------");
+        GetLogger().Log("Test #", false);
+        GetLogger().Log(i);
+        GetLogger().Log("----------------");
+
+        // only enable logging from the test when logging verbose
+        GetLogger().SetEnabledLogger(IsVerboseLogging());
+
+        // reset the failed last test flag
+        SetFailedLastTest(false);
+
+        // run the test
         GetTestCase(i).Run(dut, GetTestCaseConfig(i), GetEvaluator(), GetLogger());
-        // TODO IMPLEMENT: Print test pass/fail metadata
+
+        // reenable the logger if it was off
+        GetLogger().SetEnabledLogger(true);
+
+        // print test result
+        GetLogger().Log("----------------");
+        GetLogger().Log("Test result: ", false);
+        if (IsFailedLastTest()) {
+            GetLogger().Log("FAIL");
+        } else {
+            GetLogger().Log("PASS");
+        }
     }
+}
+
+void CTestHarness::SetFailedLastTest(bool failed) {
+    m_failed_last_test = failed;
+}
+
+bool CTestHarness::IsFailedLastTest() {
+    return m_failed_last_test;
+}
+
+// CEvaluator::IDelValidateFail
+
+void CTestHarness::OnValidateFail() {
+    m_failed_last_test = true;
 }
 
 /* PRIVATE */
@@ -56,7 +93,12 @@ ILogger& CTestHarness::GetLogger() {
     return *m_test_harness_config.logger;
 }
 
+bool CTestHarness::IsVerboseLogging() {
+    return m_test_harness_config.verbose_logging;
+}
+
 const CEvaluator& CTestHarness::GetEvaluator() {
+    m_evaluator.SetDelValidateFail(this);
     return m_evaluator;
 }
 

@@ -28,7 +28,7 @@
 
 class ILogger;
 
-class CTestHarness final
+class CTestHarness final : CEvaluator::IDelValidateFail
 {
 public:
     class ITestCase
@@ -45,8 +45,9 @@ public:
 
     struct TEST_HARNESS_CONFIG_DESC
     {
-        volatile void* dut;
-        ILogger* logger;
+        volatile void* dut   = nullptr;
+        ILogger* logger      = nullptr;
+        bool verbose_logging = true;
     };
 
     struct TEST_PLAYLIST_DESC
@@ -63,9 +64,15 @@ public:
     virtual void SetTestHarnessConfig(const TEST_HARNESS_CONFIG_DESC&);
     virtual void SetTestPlaylist(const TEST_PLAYLIST_DESC&);
     virtual void Run() final;
+    virtual void SetFailedLastTest(bool failed);
+    virtual bool IsFailedLastTest();
+
+    // CEvaluator::IDelValidateFail
+    virtual void OnValidateFail();
 
 private:
     virtual volatile void* GetDUT();
+    virtual bool IsVerboseLogging();
     virtual ILogger& GetLogger();
     virtual const CEvaluator& GetEvaluator();
     virtual uint8_t GetNumTestCases();
@@ -76,4 +83,5 @@ private:
     TEST_PLAYLIST_DESC m_test_playlist;
 
     CEvaluator m_evaluator;
+    bool m_failed_last_test;
 };
