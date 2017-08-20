@@ -27,9 +27,18 @@
 /* PUBLIC */
 
 CTestHarness::CTestHarness() {
+    m_evaluator.SetDelValidateFail(this);
 }
 
 CTestHarness::~CTestHarness() {
+}
+
+void CTestHarness::SetTestHarnessConfig(const TEST_HARNESS_CONFIG_DESC& config) {
+    m_test_harness_config = config;
+}
+
+void CTestHarness::SetTestPlaylist(const TEST_PLAYLIST_DESC& playlist) {
+    m_test_playlist = playlist;
 }
 
 void CTestHarness::Run() {
@@ -73,7 +82,7 @@ void CTestHarness::SetFailedLastTest(bool failed) {
     m_failed_last_test = failed;
 }
 
-bool CTestHarness::IsFailedLastTest() {
+bool CTestHarness::IsFailedLastTest() const {
     return m_failed_last_test;
 }
 
@@ -85,33 +94,32 @@ void CTestHarness::OnValidateFail() {
 
 /* PRIVATE */
 
-volatile void* CTestHarness::GetDUT() {
+volatile void* CTestHarness::GetDUT() const {
     return m_test_harness_config.dut;
 }
 
-ILogger& CTestHarness::GetLogger() {
+ILogger& CTestHarness::GetLogger() const {
     return *m_test_harness_config.logger;
 }
 
-bool CTestHarness::IsVerboseLogging() {
+bool CTestHarness::IsVerboseLogging() const {
     return m_test_harness_config.verbose_logging;
 }
 
-const CEvaluator& CTestHarness::GetEvaluator() {
-    m_evaluator.SetDelValidateFail(this);
+const CEvaluator& CTestHarness::GetEvaluator() const {
     return m_evaluator;
 }
 
-uint8_t CTestHarness::GetNumTestCases() {
+uint8_t CTestHarness::GetNumTestCases() const {
     return m_test_playlist.num_test_cases;
 }
 
-CTestHarness::ITestCase& CTestHarness::GetTestCase(uint8_t testIndex) {
+CTestHarness::ITestCase& CTestHarness::GetTestCase(uint8_t testIndex) const {
     // TODO ERROR_HANDLING: No nullptr check?
     return *m_test_playlist.test_cases[testIndex];
 }
 
-const CTestHarness::ITestCase::TEST_CASE_CONFIG_DESC& CTestHarness::GetTestCaseConfig(uint8_t testIndex) {
+const CTestHarness::ITestCase::TEST_CASE_CONFIG_DESC& CTestHarness::GetTestCaseConfig(uint8_t testIndex) const {
     // TODO ERROR_HANDLING: No nullptr check?
     return *m_test_playlist.test_case_configs[testIndex];
 }
