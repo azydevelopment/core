@@ -40,7 +40,8 @@ public:
         struct TEST_CASE_CONFIG_DESC
         {};
 
-        virtual void Run(volatile void* dut, const TEST_CASE_CONFIG_DESC&, const CEvaluator&, const ILogger&) = 0;
+        // abstract
+        virtual void Run(volatile void* dut, const TEST_CASE_CONFIG_DESC&, const CEvaluator&, ILogger&) = 0;
     };
 
     struct TEST_HARNESS_CONFIG_DESC
@@ -61,23 +62,25 @@ public:
     CTestHarness();
     virtual ~CTestHarness();
 
-    virtual void SetTestHarnessConfig(const TEST_HARNESS_CONFIG_DESC&);
-    virtual void SetTestPlaylist(const TEST_PLAYLIST_DESC&);
+    // final
+    virtual void SetTestHarnessConfig(const TEST_HARNESS_CONFIG_DESC&) final;
+    virtual void SetTestPlaylist(const TEST_PLAYLIST_DESC&) final;
     virtual void Run() final;
-    virtual void SetFailedLastTest(bool failed);
-    virtual bool IsFailedLastTest();
+    virtual void SetFailedLastTest(bool failed) final;
+    virtual bool IsFailedLastTest() const final;
 
     // CEvaluator::IDelValidateFail
-    virtual void OnValidateFail();
+    virtual void OnValidateFail() final;
 
 private:
-    virtual volatile void* GetDUT();
-    virtual bool IsVerboseLogging();
-    virtual ILogger& GetLogger();
-    virtual const CEvaluator& GetEvaluator();
-    virtual uint8_t GetNumTestCases();
-    virtual ITestCase& GetTestCase(uint8_t testIndex);
-    virtual const ITestCase::TEST_CASE_CONFIG_DESC& GetTestCaseConfig(uint8_t testIndex);
+    // final
+    virtual volatile void* GetDUT() const final;
+    virtual bool IsVerboseLogging() const final;
+    virtual ILogger& GetLogger() const final;
+    virtual const CEvaluator& GetEvaluator() const final;
+    virtual uint8_t GetNumTestCases() const final;
+    virtual ITestCase& GetTestCase(uint8_t testIndex) const final;
+    virtual const ITestCase::TEST_CASE_CONFIG_DESC& GetTestCaseConfig(uint8_t testIndex) const final;
 
     TEST_HARNESS_CONFIG_DESC m_test_harness_config;
     TEST_PLAYLIST_DESC m_test_playlist;
