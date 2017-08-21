@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\abdeveng\core\service\logger.h" />
     <ClInclude Include="include\abdeveng\core\test\common\evaluator.h" />
     <ClInclude Include="include\abdeveng\core\test\common\harness.h" />
   </ItemGroup>

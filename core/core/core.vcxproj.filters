@@ -21,6 +21,9 @@
     <ClInclude Include="include\abdeveng\core\test\common\harness.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\abdeveng\core\service\logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\abdeveng\core\test\common\evaluator.cpp">

@@ -64,7 +64,7 @@ public:
     bool Validate(PRIMITIVE actual, COMPARATOR, PRIMITIVE expected) const;
 
     template<typename PRIMITIVE>
-    bool Validate(EVALUATION<PRIMITIVE>, COMPARATOR) const;
+    bool Validate(EVALUATION<PRIMITIVE>&, COMPARATOR) const;
 
 private:
     IDelValidateFail* m_del_validate_fail;

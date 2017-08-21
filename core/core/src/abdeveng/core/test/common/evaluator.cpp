@@ -48,7 +48,7 @@ bool CEvaluator::Validate(PRIMITIVE actual, COMPARATOR comparator, PRIMITIVE exp
 }
 
 template<typename PRIMITIVE>
-bool CEvaluator::Validate(EVALUATION<PRIMITIVE> evaluation, COMPARATOR comparator) const {
+bool CEvaluator::Validate(EVALUATION<PRIMITIVE>& evaluation, COMPARATOR comparator) const {
     // TODO IMPLEMENT
     return false;
 }
@@ -60,9 +60,9 @@ template bool CEvaluator::Validate<int32_t>(int32_t actual, COMPARATOR, int32_t 
 template bool CEvaluator::Validate<uint8_t>(uint8_t actual, COMPARATOR, uint8_t expected) const;
 template bool CEvaluator::Validate<uint16_t>(uint16_t actual, COMPARATOR, uint16_t expected) const;
 template bool CEvaluator::Validate<uint32_t>(uint32_t actual, COMPARATOR, uint32_t expected) const;
-template bool CEvaluator::Validate(EVALUATION<int8_t>, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<int16_t>, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<int32_t>, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<uint8_t>, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<uint16_t>, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<uint32_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int8_t>&, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int16_t>&, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int32_t>&, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint8_t>&, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint16_t>&, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint32_t>&, COMPARATOR) const;
