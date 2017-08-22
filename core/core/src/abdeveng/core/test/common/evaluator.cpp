@@ -20,7 +20,9 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE. */
 
-#include <abdeveng/core/test/common/evaluator.h>
+#include "abdeveng_core_test_common_evaluator.h"
+
+#include <string.h>
 
 /* PUBLIC */
 
@@ -43,26 +45,56 @@ bool CEvaluator::Validate(bool checkIfTrue) const {
 
 template<typename PRIMITIVE>
 bool CEvaluator::Validate(PRIMITIVE actual, COMPARATOR comparator, PRIMITIVE expected) const {
+    bool passed = false;
+
+    switch (comparator) {
+    case EQUAL:
+        passed = actual == expected;
+        break;
+    default:
+        // TODO IMPLEMENT
+        break;
+    }
+
+    if (m_del_validate_fail != nullptr && !passed) {
+        m_del_validate_fail->OnValidateFail();
+    }
     // TODO IMPLEMENT
-    return false;
+    return passed;
 }
 
 template<typename PRIMITIVE>
-bool CEvaluator::Validate(EVALUATION<PRIMITIVE>& evaluation, COMPARATOR comparator) const {
-    // TODO IMPLEMENT
-    return false;
+bool CEvaluator::Validate(EVALUATION<PRIMITIVE> evaluation, COMPARATOR comparator) const {
+    bool passed = false;
+
+    switch (comparator) {
+    case EQUAL:
+        // TODO HACK: This is totally not safe
+        passed = evaluation.len_payload_actual == evaluation.len_payload_expected
+                 && memcmp(evaluation.payload_actual, evaluation.payload_expected, evaluation.payload_actual);
+        break;
+    default:
+        // TODO IMPLEMENT
+        break;
+    }
+
+    if (m_del_validate_fail != nullptr && !passed) {
+        m_del_validate_fail->OnValidateFail();
+    }
+
+    return passed;
 }
 
-/* FORWARD DECLARE FUNCTION TEMPLATES */
+/* FORWARD DECLARE TEMPLATES */
 template bool CEvaluator::Validate<int8_t>(int8_t actual, COMPARATOR, int8_t expected) const;
 template bool CEvaluator::Validate<int16_t>(int16_t actual, COMPARATOR, int16_t expected) const;
 template bool CEvaluator::Validate<int32_t>(int32_t actual, COMPARATOR, int32_t expected) const;
 template bool CEvaluator::Validate<uint8_t>(uint8_t actual, COMPARATOR, uint8_t expected) const;
 template bool CEvaluator::Validate<uint16_t>(uint16_t actual, COMPARATOR, uint16_t expected) const;
 template bool CEvaluator::Validate<uint32_t>(uint32_t actual, COMPARATOR, uint32_t expected) const;
-template bool CEvaluator::Validate(EVALUATION<int8_t>&, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<int16_t>&, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<int32_t>&, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<uint8_t>&, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<uint16_t>&, COMPARATOR) const;
-template bool CEvaluator::Validate(EVALUATION<uint32_t>&, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int8_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int16_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<int32_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint8_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint16_t>, COMPARATOR) const;
+template bool CEvaluator::Validate(EVALUATION<uint32_t>, COMPARATOR) const;
