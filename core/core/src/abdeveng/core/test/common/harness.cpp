@@ -114,12 +114,12 @@ uint8_t CTestHarness::GetNumTestCases() const {
     return m_test_playlist.num_test_cases;
 }
 
-CTestHarness::ITestCase& CTestHarness::GetTestCase(uint8_t testIndex) const {
+CTestHarness::CTestCase& CTestHarness::GetTestCase(uint8_t testIndex) const {
     // TODO ERROR_HANDLING: No nullptr check?
     return *m_test_playlist.test_cases[testIndex];
 }
 
-const CTestHarness::ITestCase::TEST_CASE_CONFIG_DESC& CTestHarness::GetTestCaseConfig(uint8_t testIndex) const {
+const CTestHarness::CTestCase::TEST_CASE_CONFIG_DESC& CTestHarness::GetTestCaseConfig(uint8_t testIndex) const {
     // TODO ERROR_HANDLING: No nullptr check?
     return *m_test_playlist.test_case_configs[testIndex];
 }

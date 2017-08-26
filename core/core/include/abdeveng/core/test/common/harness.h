@@ -31,10 +31,10 @@ class ILogger;
 class CTestHarness final : CEvaluator::IDelValidateFail
 {
 public:
-    class ITestCase
+    class CTestCase
     {
     public:
-        virtual ~ITestCase() {
+        virtual ~CTestCase() {
         }
 
         struct TEST_CASE_CONFIG_DESC
@@ -55,8 +55,8 @@ public:
     {
         // TODO HACK: Limited to 256 test cases
         uint8_t num_test_cases                               = 0;
-        ITestCase** test_cases                               = nullptr;
-        ITestCase::TEST_CASE_CONFIG_DESC** test_case_configs = nullptr;
+        CTestCase** test_cases                               = nullptr;
+        CTestCase::TEST_CASE_CONFIG_DESC** test_case_configs = nullptr;
     };
 
     CTestHarness();
@@ -79,8 +79,8 @@ private:
     virtual ILogger& GetLogger() const final;
     virtual const CEvaluator& GetEvaluator() const final;
     virtual uint8_t GetNumTestCases() const final;
-    virtual ITestCase& GetTestCase(uint8_t testIndex) const final;
-    virtual const ITestCase::TEST_CASE_CONFIG_DESC& GetTestCaseConfig(uint8_t testIndex) const final;
+    virtual CTestCase& GetTestCase(uint8_t testIndex) const final;
+    virtual const CTestCase::TEST_CASE_CONFIG_DESC& GetTestCaseConfig(uint8_t testIndex) const final;
 
     TEST_HARNESS_CONFIG_DESC m_test_harness_config;
     TEST_PLAYLIST_DESC m_test_playlist;
