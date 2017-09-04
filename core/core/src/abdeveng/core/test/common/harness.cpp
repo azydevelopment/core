@@ -51,7 +51,7 @@ void CTestHarness::Run() {
     for (uint8_t i = 0; i < numTestCases; i++) {
         // print test header
         GetLogger().Log("\n----------------");
-        GetLogger().Log("Test start", false);
+        GetLogger().Log("Test start");
         GetLogger().Log("----------------");
 
         // only enable logging from the test when logging verbose
@@ -118,7 +118,8 @@ CTestHarness::ITestCase& CTestHarness::GetTestCase(uint8_t testIndex) const {
     return *m_test_playlist.test_cases[testIndex];
 }
 
-const CTestHarness::ITestCase::TEST_CASE_CONFIG_DESC& CTestHarness::GetTestCaseConfig(uint8_t testIndex) const {
+const CTestHarness::ITestCase::TEST_CASE_CONFIG_DESC&
+CTestHarness::GetTestCaseConfig(uint8_t testIndex) const {
     // TODO ERROR_HANDLING: No nullptr check?
     return *m_test_playlist.test_case_configs[testIndex];
 }
