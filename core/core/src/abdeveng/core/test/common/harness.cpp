@@ -51,8 +51,7 @@ void CTestHarness::Run() {
     for (uint8_t i = 0; i < numTestCases; i++) {
         // print test header
         GetLogger().Log("\n----------------");
-        GetLogger().Log("Test #", false);
-        GetLogger().Log(i);
+        GetLogger().Log("Test start", false);
         GetLogger().Log("----------------");
 
         // only enable logging from the test when logging verbose

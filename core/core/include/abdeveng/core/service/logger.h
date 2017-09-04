@@ -22,18 +22,9 @@
 
 #pragma once
 
-#include <stdint.h>
-
 class ILogger
 {
 public:
-    // TODO IMPLEMENT: Add more formats (eg. HEXIDECIMAL)
-    enum FORMAT : uint8_t
-    {
-        DECIMAL = 10,
-        BINARY  = 2
-    };
-
     virtual ~ILogger() {
     }
 
@@ -42,8 +33,4 @@ public:
     virtual bool IsEnabledLogger()      = 0;
     virtual void LogEol()               = 0;
     virtual void Log(const char[], bool eol = true) = 0;
-    virtual void Log(const int, FORMAT = DECIMAL, bool eol = true) = 0;
-    virtual void Log(const long, FORMAT = DECIMAL, bool eol = true) = 0;
-    virtual void Log(const unsigned int, FORMAT = DECIMAL, bool eol = true) = 0;
-    virtual void Log(const unsigned long, FORMAT = DECIMAL, bool eol = true) = 0;
 };
