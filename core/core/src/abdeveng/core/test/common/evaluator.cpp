@@ -72,7 +72,7 @@ bool CEvaluator::Validate(EVALUATION<PRIMITIVE>& evaluation, COMPARATOR comparat
     case EQUAL:
         // TODO HACK: This is totally not safe
         passed = evaluation.len_payload_actual == evaluation.len_payload_expected
-                 && memcmp(
+                 && !memcmp(
                         evaluation.payload_actual,
                         evaluation.payload_expected,
                         evaluation.len_payload_actual);
