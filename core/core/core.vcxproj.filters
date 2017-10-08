@@ -21,7 +21,7 @@
     <ClInclude Include="include\abdeveng\core\test\common\harness.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\abdeveng\core\service\logger.h">
+    <ClInclude Include="include\abdeveng\core\logging\common\logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -30,6 +30,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\abdeveng\core\test\common\harness.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\abdeveng\core\logging\common\logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

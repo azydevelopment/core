@@ -22,7 +22,7 @@
 
 #include <abdeveng/core/test/common/harness.h>
 
-#include <abdeveng/core/service/logger.h>
+#include <abdeveng/core/logging/common/logger.h>
 
 /* PUBLIC */
 
@@ -97,7 +97,7 @@ volatile void* CTestHarness::GetDUT() const {
     return m_test_harness_config.dut;
 }
 
-ILogger& CTestHarness::GetLogger() const {
+CLogger& CTestHarness::GetLogger() const {
     return *m_test_harness_config.logger;
 }
 

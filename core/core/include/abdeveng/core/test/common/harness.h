@@ -26,7 +26,7 @@
 
 #include <abdeveng/core/test/common/evaluator.h>
 
-class ILogger;
+class CLogger;
 
 class CTestHarness final : CEvaluator::IDelValidateFail
 {
@@ -41,13 +41,14 @@ public:
         {};
 
         // abstract
-        virtual void Run(volatile void* dut, const TEST_CASE_CONFIG_DESC&, const CEvaluator&, ILogger&) = 0;
+        virtual void
+        Run(volatile void* dut, const TEST_CASE_CONFIG_DESC&, const CEvaluator&, CLogger&) = 0;
     };
 
     struct TEST_HARNESS_CONFIG_DESC
     {
         volatile void* dut   = nullptr;
-        ILogger* logger      = nullptr;
+        CLogger* logger      = nullptr;
         bool verbose_logging = true;
     };
 
@@ -76,11 +77,12 @@ private:
     // final
     virtual volatile void* GetDUT() const final;
     virtual bool IsVerboseLogging() const final;
-    virtual ILogger& GetLogger() const final;
+    virtual CLogger& GetLogger() const final;
     virtual const CEvaluator& GetEvaluator() const final;
     virtual uint8_t GetNumTestCases() const final;
     virtual ITestCase& GetTestCase(uint8_t testIndex) const final;
-    virtual const ITestCase::TEST_CASE_CONFIG_DESC& GetTestCaseConfig(uint8_t testIndex) const final;
+    virtual const ITestCase::TEST_CASE_CONFIG_DESC&
+    GetTestCaseConfig(uint8_t testIndex) const final;
 
     TEST_HARNESS_CONFIG_DESC m_test_harness_config;
     TEST_PLAYLIST_DESC m_test_playlist;

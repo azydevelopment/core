@@ -11,11 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\abdeveng\core\service\logger.h" />
+    <ClInclude Include="include\abdeveng\core\logging\common\logger.h" />
     <ClInclude Include="include\abdeveng\core\test\common\evaluator.h" />
     <ClInclude Include="include\abdeveng\core\test\common\harness.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\abdeveng\core\logging\common\logging.cpp" />
     <ClCompile Include="src\abdeveng\core\test\common\evaluator.cpp" />
     <ClCompile Include="src\abdeveng\core\test\common\harness.cpp" />
   </ItemGroup>
