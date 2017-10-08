@@ -39,6 +39,20 @@
             },
             // Use the standard MS compiler pattern to detect errors, warnings and infos
             "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "clean",
+            "command": "${env:MSBUILD}",
+            "args": [
+                "core.sln",
+                "/t:Clean"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
         }
     ]
 }
