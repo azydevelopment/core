@@ -24,26 +24,24 @@
 
 #include <stdint.h>
 
-class CLogger {
+class CLogger
+{
 public:
-
     // destructor
     virtual ~CLogger();
 
     // NVI
-    virtual void InitLogger() final;
-    virtual void SetEnabledLogger(const bool) final;
-    virtual bool IsEnabledLogger() final;
+    virtual void Init() final;
+    virtual void SetEnabled(const bool) final;
+    virtual bool IsEnabled() final;
     virtual void LogEol() final;
     virtual void Log(const char[], const bool eol = true) final;
 
 protected:
-
     // constructor
     CLogger();
 
 private:
-
     // rule of three
     CLogger(const CLogger&);
     CLogger& operator=(const CLogger&);
@@ -52,7 +50,7 @@ private:
     bool m_enabled;
 
     // abstract
-    virtual void InitLogger_impl() = 0;
-    virtual void SetEnabledLogger_impl(const bool) = 0;
+    virtual void Init_impl()                 = 0;
+    virtual void SetEnabled_impl(const bool) = 0;
     virtual void Log_impl(const char[], const bool eol = true) = 0;
 };

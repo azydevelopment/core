@@ -31,16 +31,16 @@ CLogger::~CLogger() {
 
 // NVI
 
-void CLogger::InitLogger() {
-    InitLogger_impl();
+void CLogger::Init() {
+    Init_impl();
 }
 
-void CLogger::SetEnabledLogger(const bool enable) {
-    SetEnabledLogger_impl(enable);
+void CLogger::SetEnabled(const bool enable) {
+    SetEnabled_impl(enable);
     m_enabled = enable;
 }
 
-bool CLogger::IsEnabledLogger() {
+bool CLogger::IsEnabled() {
     return m_enabled;
 }
 
@@ -49,7 +49,7 @@ void CLogger::LogEol() {
 }
 
 void CLogger::Log(const char msg[], const bool eol) {
-    if (IsEnabledLogger()) {
+    if (IsEnabled()) {
         Log_impl(msg, eol);
     }
 }
