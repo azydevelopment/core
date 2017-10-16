@@ -7,7 +7,7 @@
             "taskName": "build_debug",
             "command": "${env:MSBUILD}",
             "args": [
-                "build/visual_studio_2013/core.sln",
+                "core.sln",
                 "/property:Configuration=Debug",
                 "/property:Platform=x64",
                 "/property:GenerateFullPaths=true",
@@ -27,7 +27,7 @@
             "taskName": "build_release",
             "command": "${env:MSBUILD}",
             "args": [
-                "build/visual_studio_2013/core.sln",
+                "core.sln",
                 "/property:Configuration=Release",
                 "/property:Platform=x64",
                 "/property:GenerateFullPaths=true",
@@ -44,7 +44,7 @@
             "taskName": "clean",
             "command": "${env:MSBUILD}",
             "args": [
-                "build/visual_studio_2013/core.sln",
+                "core.sln",
                 "/t:Clean"
             ],
             "group": "build",
