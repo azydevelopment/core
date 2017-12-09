@@ -24,6 +24,7 @@
     <ProjectGuid>{D8683758-AAC9-4C64-A180-75FB7212010E}</ProjectGuid>
     <RootNamespace>core</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>abdeveng_core_vs2013</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
