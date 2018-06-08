@@ -3,8 +3,10 @@
         {
             "name": "x64",
             "includePath": [
-                "${workspaceRoot}/core/include/",
-                "${env:INCLUDE}"
+                "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/arm/arm-gnu-toolchain/arm-none-eabi/include",
+                "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/arm/arm-gnu-toolchain/arm-none-eabi/include/c++/6.3.1",
+                "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/arm/arm-gnu-toolchain/arm-none-eabi/include/c++/6.3.1/arm-none-eabi",
+                "${workspaceFolder}/abdeveng_core/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -13,13 +15,15 @@
             "intelliSenseMode": "msvc-x64",
             "browse": {
                 "path": [
-                    "${workspaceRoot}/core/include/",
-                    "${env:INCLUDE}"
+                    "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/arm/arm-gnu-toolchain/arm-none-eabi/include",
+                    "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/arm/arm-gnu-toolchain/arm-none-eabi/include/c++/6.3.1",
+                    "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/arm/arm-gnu-toolchain/arm-none-eabi/include/c++/6.3.1/arm-none-eabi",
+                    "${workspaceFolder}/abdeveng_core/include"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
             }
         }
     ],
-    "version": 3
+    "version": 4
 }
